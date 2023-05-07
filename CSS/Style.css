@@ -5,6 +5,7 @@ body {
     padding-top: 50px;
   }
   /* NAVBAR */
+
 .logo{
     border-radius:  28%;
   }
@@ -12,33 +13,7 @@ body {
     border-bottom: 1px solid #7a45509d;
     background-color:rgb(184, 164, 152);
   }
-  #navbar a {
-    color: #01051da9;
-  }
+
+
   
-  #navbar a:hover {
-    color: #703F2A;
-  }
-  
-  #navbar .active {
-    border-bottom: 1px solid  #703F2A;
-  }
-  
-  .navbar-brand {
-    display: flex;
-  }
-  
-  .navbar-brand img {
-    width: 90px;
-   
-  }
-  
-  #navbar-items .navbar-nav  {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
-  
-  #navbar-items .nav-item {
-    margin: 0 1em;
-  }
+ 
