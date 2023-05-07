@@ -1,3 +1,9 @@
+<?php
+try {
+    include "abrir_transacao.php";
+include_once "operacoes.php";
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -15,7 +21,7 @@
 <body>
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-sm fixed-top bg-primary-color" id="navbar">
-    <div class="container-md ">
+    <div class="container-sm ">
       <a class="navbar-brand" href="index">
         <img class="logo" src="../imagem/Martini & Showza.png" alt="Logo" />
       </a>
@@ -25,21 +31,63 @@
       </button>
       <div class="collapse navbar-collapse" id="navbar-items">
         <ul class="navbar-nav me-auto  mb-lg-2 mb-md-0">
-          <li >
-            <h1>Imobiliaria Martini & Showza </h1>
+          <li class="nav-item">
+           <h1>Imobiliaria Martini & Showza</h1>
           </li>
         </ul>
       </div>
-    </div>
-</nav>
-
-
-
-
-
-
-
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-</body>
+    </div>     
+  </nav>
+      <div class="container-md">
+      <?php $resultado = listar_imoveis(); ?>
+      <table class="table table-striped table-hover">
+      <tr class="table-secondary">
+                  <th scope="column">Chave</th>
+                  <th scope="column">Area construida em m2</th>
+                  <th scope="column">Area total em m2</th>
+                  <th scope="column">Quartos</th><th scope="column">Banheiros</th>
+                  <th scope="column">Numero do Andar</th>
+                  <th scope="column">Logradouro</th>
+                  <th scope="column">Preço de Venda</th>
+                  <th scope="column">Mensalidade do aluguel</th>
+                  <th scope="column"> Situação </th>
+                  <th scope="column">Tipo</th>
+                  <th scope="column">Editar / Excluir</th>
+                  
+              </tr>
+              <?php foreach ($resultado as $linha) { ?>
+                <tr class="table-secondary">
+                      <td class="table-secondary"><?= $linha["chave"] ?></td>
+                      <td class="table-secondary"><?= $linha["area_construida_m2"] ?></td>
+                      <td class="table-secondary"><?= $linha["area_total_m2"] ?></td>
+                      <td class="table-secondary"><?= $linha["quartos"] ?></td>
+                      <td class="table-secondary"><?= $linha["banheiros"] ?></td>
+                      <td class="table-secondary"><?= $linha["numero_piso"] ?></td>
+                      <td class="table-secondary"><?= $linha["logradouro"] ?></td>
+                      <td class="table-secondary"><?= $linha["preco_venda"] ?></td>
+                      <td class="table-secondary"><?= $linha["mensalidade_aluguel"] ?></td>
+                      <td class="table-secondary"><?= $linha["situacao"] ?></td>
+                      <td class="table-secondary"><?= $linha["tipo"] ?></td>
+                      <td class="table-secondary">
+                          <button type="button">
+                              <a href="cadastro.php?chave=<?= $linha["chave"] ?>">Editar</a>
+                          </button>
+                      </td>
+                  </tr>
+              <?php } ?>
+          </table>
+          <button type="button"><a href="cadastro.php">Criar novo</a></button>
+         </div>
+    </body>
 </html>
+
+<?php
+
+$transacaoOk = true;
+
+} finally {
+    include "fechar_transacao.php";
+}
+?>
+
+

@@ -1,13 +1,15 @@
 body {
     font-family: Arial, Helvetica, sans-serif sans-serif;
       text-align: center;
-      font-weight: 500;
+      font-weight: 300;
     padding-top: 50px;
+ 
   }
   /* NAVBAR */
 
 .logo{
-    border-radius:  28%;
+    width: 95px;
+    border-radius: 28%;
   }
   #navbar {
     border-bottom: 1px solid #7a45509d;
