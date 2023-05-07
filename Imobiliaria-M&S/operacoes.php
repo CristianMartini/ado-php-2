@@ -27,15 +27,15 @@ include_once "conecta-sqlite.php";
         "WHERE chave = :chave";
     $pdo->prepare($sql)->execute($imovel);
 }
-function excluir_flor($chave) {
+function excluir_imovel($chave) {
     global $pdo;
-    $sql = "DELETE FROM imoveis WHERE chave = :chave";
+    $sql = "DELETE FROM imovel WHERE chave = :chave";
     $pdo->prepare($sql)->execute(["chave" => $chave]);
 }
 
-function listar_imoveis() {
+function listar_imovel() {
     global $pdo;
-    $sql = "SELECT * FROM imoveis";
+    $sql = "SELECT * FROM imovel";
     $resultados = [];
     $consulta = $pdo->query($sql);
     while ($linha = $consulta->fetch()) {
@@ -44,9 +44,9 @@ function listar_imoveis() {
     return $resultados;
 }
 
-function buscar_imoveis($chave) {
+function buscar_imovel($chave) {
     global $pdo;
-    $sql = "SELECT * FROM imoveis WHERE chave = :chave";
+    $sql = "SELECT * FROM imovel WHERE chave = :chave";
     $resultados = [];
     $consulta = $pdo->prepare($sql);
     $consulta->execute(["chave" => $chave]);
