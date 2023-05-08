@@ -7,13 +7,26 @@ $tipos = listar_imovel();
 
 function validar($imovel) {
     global $tipos;
-    return strlen($imovel["area_construida_m2"]) >= 0 && strlen($imovel["area_construida_m2"]) <= 500000
+    return strlen($imovel["area_construida_m2"]) >= 0 && strlen($imovel["area_construida_m2"]) <= 5000000
         && strlen($imovel["quartos"]) >= 0
         && strlen($imovel["quartos"]) <= 50
-        && strlen($imovel["localizacao"]) >= 4
-        && strlen($imovel["localizacao"]) <= 200
-        && $imovel["folhas"] >= 0
-        && $imovel["folhas"] <= 5000000
+        && strlen($imovel["banheiros"]) >= 0
+        && strlen($imovel["banheiros"]) <= 50
+        && strlen($imovel["numero_piso"]) >= 0
+        && strlen($imovel["numero_piso"]) <= 50
+        && strlen($imovel["banheiros"]) >= 0
+        && strlen($imovel["banheiros"]) <= 5000000
+        && strlen($imovel["logradouro"]) >= 0
+        && strlen($imovel["logradouro"]) <= 5000000
+        && strlen($imovel["preco_venda"]) >= 0
+        && strlen($imovel["preco_venda"]) <= 500000000
+        && strlen($imovel["mensalidade_aluguel"]) >= 0
+        && strlen($imovel["mensalidade_aluguel"]) <= 5000000
+        && strlen($imovel["situacao"]) >= 0
+        && strlen($imovel["situacao"]) <= 50
+        && strlen($imovel["tipo"]) >= 0
+        && strlen($imovel["tipo"]) <= 50
+        
         && in_array($imovel["tipo"], $tipos, true);
 }
 
@@ -28,11 +41,17 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $chave = "";
         $imovel = [
             "chave" => "",
-            "cor" => "",
-            "especie" => "",
-            "localizacao" => "",
-            "folhas" => "",
-            "tipo" => ""
+            "area_construida_m2" => "",
+            "area_total_m2" => "",
+            "quartos" => "",
+            "banheiros" => "",
+            "numero_piso" => "",
+            "logradouro" => "",
+            "preco_venda" => "",
+            "mensalidade_aluguel" => "",
+            "situacao" => "",
+            "tipo" => "",
+          
         ];
     }
     $validacaoOk = true;
