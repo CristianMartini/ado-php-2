@@ -93,7 +93,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <title>Imobiliaria Martini & Showza</title>
     <meta charset="UTF-8">
@@ -144,10 +143,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             </div>
         </div>
     </nav>
-
-    <div class="container-md">
-
-  
+    <div class="container_adm">
+    <div class="container-md  forms">
       <form method="POST" action="cadastro.php" id="formulario">
         <?php if (!$validacaoOk) {?>
         <div>
@@ -157,7 +154,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         <?php if ($alterar) { ?>
         <div>
             <label for="chave">Chave:</label>
-            <input type="text" id="chave" name="chave" value="<?= $imkovel["chave"] ?>" readonly>
+            <input type="text" id="chave" name="chave" value="<?= $imovel["chave"] ?>" readonly>
         </div>
         <?php } ?>
         <div>
@@ -191,14 +188,16 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             <button type="button" onclick="confirmar()">Salvar</button>
         </div>
     </form>
-    </div>
+   
     <?php if ($alterar) { ?>
     <form action="excluir.php" method="POST" style="display: none" id="excluir-imovel">
         <input type="hidden" name="chave" value="<?= $imovel["chave"] ?>">
     </form>
     <button type="button" onclick="excluir()">Excluir</button>
     <?php } ?>
-   
+    </div>
+    </div>
+    
 </body>
 
 </html>

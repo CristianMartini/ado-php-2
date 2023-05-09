@@ -41,10 +41,15 @@ include_once "operacoes.php";
             </div>
         </div>
     </nav>
-    <div class="container-md">
+   <div class="container_adm">
+      <form class="form_adm">
+        <div class="container-md">
         <?php $resultado = listar_imovel(); ?>
-        <table class="table table-striped table-hover">
-            <tr class="table-secondary">
+          <table  class="table table-striped-columns table-bordered ">
+          <tbody class="table-group-divider tabelaEst">
+            <tr>
+       
+
                 <th scope="column">Chave</th>
                 <th scope="column">Area construida em m2</th>
                 <th scope="column">Area total em m2</th>
@@ -54,10 +59,9 @@ include_once "operacoes.php";
                 <th scope="column">Logradouro</th>
                 <th scope="column">Preço de Venda</th>
                 <th scope="column">Mensalidade do aluguel</th>
-                <th scope="column"> Situação </th>
+                <th scope="column">Situação </th>
                 <th scope="column">Tipo</th>
                 <th scope="column">Editar / Excluir</th>
-
             </tr>
             <?php foreach ($resultado as $linha) { ?>
             <tr class="table-secondary">
@@ -79,6 +83,7 @@ include_once "operacoes.php";
                 </td>
             </tr>
             <?php } ?>
+          </tbody>
         </table>
         <button type="button"><a href="cadastro.php">Criar novo</a></button>
     </div>
