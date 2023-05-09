@@ -91,14 +91,25 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     die("Método não aceito");
 }
 ?>
-
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 
 <head>
-    <meta charset="utf-8">
-    <title>Cadastro de folhas</title>
-    <script>
+    <title>Imobiliaria Martini & Showza</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="../CSS/Style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+
+        <script>
     function confirmar() {
         if (!confirm("Tem certeza que deseja salvar os dados?")) return;
         document.getElementById("formulario").submit();
@@ -111,8 +122,33 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     </script>
 </head>
 
+
+
 <body>
-    <form method="POST" action="cadastro.php" id="formulario">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-sm fixed-top bg-primary-color" id="navbar">
+        <div class="container-sm ">
+            <a class="navbar-brand" href="index">
+                <img class="logo" src="../imagem/Martini & Showza.png" alt="Logo" />
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-items"
+                aria-controls="navbar-items" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="bi bi-list"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar-items">
+                <ul class="navbar-nav me-auto  mb-lg-2 mb-md-0">
+                    <li class="nav-item">
+                        <h1>Imobiliaria Martini & Showza</h1>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-md">
+
+  
+      <form method="POST" action="cadastro.php" id="formulario">
         <?php if (!$validacaoOk) {?>
         <div>
             <p>Preencha os campos corretamente!</p>
@@ -155,12 +191,14 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             <button type="button" onclick="confirmar()">Salvar</button>
         </div>
     </form>
+    </div>
     <?php if ($alterar) { ?>
     <form action="excluir.php" method="POST" style="display: none" id="excluir-imovel">
         <input type="hidden" name="chave" value="<?= $imovel["chave"] ?>">
     </form>
     <button type="button" onclick="excluir()">Excluir</button>
     <?php } ?>
+   
 </body>
 
 </html>
