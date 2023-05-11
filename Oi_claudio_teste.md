@@ -1,1 +1,0 @@
-estou so vendo como esta  o git , se vai aparecer para você , vamos nos organizar , para fazermos juntos , para tirarmos as duvidas e aprendermos ,

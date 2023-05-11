@@ -3,19 +3,21 @@ try {
     include "abrir_transacao.php";
 include_once "operacoes.php";
 
-$tipos = listar_imovel();
+$tipos = listar_tipo();
+$situacoes = listar_situacao();
 
 function validar($imovel) {
     global $tipos;
+    global $situacoes;
     return strlen($imovel["area_construida_m2"]) >= 0 && strlen($imovel["area_construida_m2"]) <= 5000000
         && strlen($imovel["quartos"]) >= 0
         && strlen($imovel["quartos"]) <= 50
         && strlen($imovel["banheiros"]) >= 0
         && strlen($imovel["banheiros"]) <= 50
-        && strlen($imovel["numero_piso"]) >= 0
+        && strlen($imovel["numero_piso"]) >=-5
         && strlen($imovel["numero_piso"]) <= 50
         && strlen($imovel["banheiros"]) >= 0
-        && strlen($imovel["banheiros"]) <= 5000000
+        && strlen($imovel["banheiros"]) <= 50
         && strlen($imovel["logradouro"]) >= 0
         && strlen($imovel["logradouro"]) <= 5000000
         && strlen($imovel["preco_venda"]) >= 0
@@ -24,10 +26,10 @@ function validar($imovel) {
         && strlen($imovel["mensalidade_aluguel"]) <= 5000000
         && strlen($imovel["situacao"]) >= 0
         && strlen($imovel["situacao"]) <= 50
-        && strlen($imovel["tipo"]) >= 0
-        && strlen($imovel["tipo"]) <= 50
-        
-        && in_array($imovel["tipo"], $tipos, true);
+        && in_array($imovel["situacao"], $situacoes, true)
+        && strlen($imovel["tipo_imovel"]) >= 0
+        && strlen($imovel["tipo_imovel"]) <= 50
+        && in_array($imovel["tipo_imovel"], $tipos, true);
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
@@ -40,7 +42,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     } else {
         $chave = "";
         $imovel = [
-            "chave" => "",
             "area_construida_m2" => "",
             "area_total_m2" => "",
             "quartos" => "",
@@ -50,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             "preco_venda" => "",
             "mensalidade_aluguel" => "",
             "situacao" => "",
-            "tipo" => "",
+            "tipo_imovel" => "",
           
         ];
     }
@@ -62,22 +63,33 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     if ($alterar) {
         $imovel = [
-            "chave" => $_POST["chave"],
-            "cor" => $_POST["cor"],
-            "especie" => $_POST["especie"],
-            "localizacao" => $_POST["localizacao"],
-            "folhas" => $_POST["folhas"],
-            "tipo" => $_POST["tipo"]
+            "chave" =>  $_POST["chave"],
+            "area_construida_m2" =>  $_POST["area_construida_m2"],
+            "area_total_m2" =>  $_POST["area_total_m2"],
+            "quartos" =>  $_POST["quartos"],
+            "banheiros" =>  $_POST["banheiros"],
+            "numero_piso" =>  $_POST["numero_piso"],
+            "logradouro" =>  $_POST["logradouro"],
+            "preco_venda" =>  $_POST["preco_venda"],
+            "mensalidade_aluguel" =>  $_POST["mensalidade_aluguel"],
+            "situacao" =>  $_POST["situacao"],
+            "tipo_imovel" =>  $_POST["tipo_imovel"],
+           
         ];
         $validacaoOk = validar($imovel);
         if ($validacaoOk) alterar_imovel($imovel);
     } else {
         $imovel= [
-            "cor" => $_POST["cor"],
-            "especie" => $_POST["especie"],
-            "localizacao" => $_POST["localizacao"],
-            "folhas" => $_POST["folhas"],
-            "tipo" => $_POST["tipo"]
+            "area_construida_m2" =>  $_POST["area_construida_m2"],
+            "area_total_m2" =>  $_POST["area_total_m2"],
+            "quartos" =>  $_POST["quartos"],
+            "banheiros" =>  $_POST["banheiros"],
+            "numero_piso" =>  $_POST["numero_piso"],
+            "logradouro" =>  $_POST["logradouro"],
+            "preco_venda" =>  $_POST["preco_venda"],
+            "mensalidade_aluguel" =>  $_POST["mensalidade_aluguel"],
+            "situacao" =>  $_POST["situacao"],
+            "tipo_imovel" =>  $_POST["tipo_imovel"],
         ];
         $validacaoOk = validar($imovel);
         if ($validacaoOk) $id = inserir_imovel($imovel);
@@ -115,8 +127,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     }
 
     function excluir() {
-        if (!confirm("Tem certeza que deseja excluir a flor?")) return;
-        document.getElementById("excluir-flor").submit();
+        if (!confirm("Tem certeza que deseja excluir o imovel?")) return;
+        document.getElementById("excluir-imovel").submit();
     }
     </script>
 </head>
@@ -158,32 +170,62 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         </div>
         <?php } ?>
         <div>
-            <label for="cor">Cor:</label>
-            <input type="text" id="cor" name="cor" value="<?= $imovel["cor"] ?>">
+            <label for="area_construida_m2">Area construida  :</label>
+            <input type="number" id="area_construida_m2" name="area_construida_m2" value="<?= $imovel["area_construida_m2"] ?>">
         </div>
         <div>
-            <label for="especie">Espécie:</label>
-            <input type="text" id="especie" name="especie" value="<?= $imovel["especie"] ?>">
+            <label for="area_total_m2"> Area total do imovel:</label>
+            <input type="number" id="area_total_m2" name="area_total_m2" value="<?= $imovel["area_total_m2"] ?>">
         </div>
         <div>
-            <label for="local">Local:</label>
-            <input type="text" id="localizacao" name="localizacao" value="<?= $imovel["localizacao"] ?>">
+            <label for="quartos">Quantidade de quartos:</label>
+            <input type="number" id="quartos" name="quartos" value="<?= $imovel["quartos"] ?>">
         </div>
         <div>
-            <label for="folhas">Folhas:</label>
-            <input type="text" id="folhas" name="folhas" value="<?= $imovel["folhas"] ?>">
+            <label for="banheiros">Banheiros:</label>
+            <input type="number" id="banheiros" name="banheiros" value="<?= $imovel["banheiros"] ?>">
         </div>
         <div>
-            <label for="tipo">Tipo de flor:</label>
-            <select id="tipo" name="tipo">
+            <label for="numero_piso">Numero do piso:</label>
+            <input type="number" id="numero_piso" name="numero_piso" value="<?= $imovel["numero_piso"] ?>">
+        </div>
+        <div>
+            <label for="logradouro">Insira  seu Endereço completo:</label>
+            <input type="text" id="logradouro" name="logradouro" value="<?= $imovel["logradouro"] ?>">
+        </div> 
+        <div>
+            <label for="preco_venda">Preço de venda do imovel:</label>
+            <input type="number" id="preco_venda" name="preco_venda" value="<?= $imovel["preco_venda"] ?>">
+        </div>
+        <div>
+            <label for="mensalidade_aluguel">Mensalidade do imovel:</label>
+            <input type="number" id="mensalidade_aluguel" name="mensalidade_aluguel" value="<?= $imovel["mensalidade_aluguel"] ?>">
+        </div>
+       
+        <div>
+            <label for="situacao">Situação do imóvel:</label>
+            <select id="situacao" name="situacao">
                 <option>Escolha...</option>
-                <?php foreach ($tipos as $tipo) { ?>
-                <option value="<?= $tipo ?>" <?php if ($imovel["tipo"] === $tipo) { ?> selected <?php } ?>>
-                    <?= $tipo ?>
+                <?php foreach ($situacoes as $situacao) { ?>
+                <option value="<?= $situacao ?>" <?php if ($imovel["situacao"] === $situacao) { ?> selected <?php } ?>>
+                    <?= $situacao ?>
                 </option>
                 <?php } ?>
             </select>
         </div>
+        <label for="tipo_imovel">Tipo do Imóvel:</label>
+                <select id="tipo_imovel" name="tipo_imovel">
+                    <option>Escolha...</option>
+                    <?php foreach ($tipos as $tipo_imovel) { ?>
+                        <option value="<?= $tipo_imovel ?>"
+                            <?php if ($imovel["tipo"] === $tipo_imovel) { ?>
+                            selected
+                            <?php } ?>>
+                            <?= $tipo_imovel ?>
+                        </option>
+                    <?php } ?>
+                </select>
+            </div>
         <div>
             <button type="button" onclick="confirmar()">Salvar</button>
         </div>
