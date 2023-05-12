@@ -218,7 +218,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                     <option>Escolha...</option>
                     <?php foreach ($tipos as $tipo_imovel) { ?>
                         <option value="<?= $tipo_imovel ?>"
-                            <?php if ($imovel["tipo"] === $tipo_imovel) { ?>
+                            <?php if ($alterar && $imovel["tipo"] === $tipo_imovel) { ?>
                             selected
                             <?php } ?>>
                             <?= $tipo_imovel ?>
@@ -230,7 +230,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             <button type="button" onclick="confirmar()">Salvar</button>
         </div>
     </form>
-   
+  </div>
+                            </div>
     <?php if ($alterar) { ?>
     <form action="excluir.php" method="POST" style="display: none" id="excluir-imovel">
         <input type="hidden" name="chave" value="<?= $imovel["chave"] ?>">
