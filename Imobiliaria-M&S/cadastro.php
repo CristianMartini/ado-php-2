@@ -9,28 +9,54 @@ $situacoes = listar_situacao();
 function validar($imovel) {
     global $tipos;
     global $situacoes;
-    return strlen($imovel["area_construida_m2"]) >= 0 && strlen($imovel["area_construida_m2"]) <= 5000000
-        && strlen($imovel["quartos"]) >= 0
-        && strlen($imovel["quartos"]) <= 50
-        && strlen($imovel["banheiros"]) >= 0
-        && strlen($imovel["banheiros"]) <= 50
-        && strlen($imovel["numero_piso"]) >=-5
-        && strlen($imovel["numero_piso"]) <= 50
-        && strlen($imovel["banheiros"]) >= 0
-        && strlen($imovel["banheiros"]) <= 50
-        && strlen($imovel["logradouro"]) >= 0
-        && strlen($imovel["logradouro"]) <= 5000000
-        && strlen($imovel["preco_venda"]) >= 0
-        && strlen($imovel["preco_venda"]) <= 500000000
-        && strlen($imovel["mensalidade_aluguel"]) >= 0
-        && strlen($imovel["mensalidade_aluguel"]) <= 5000000
-        && strlen($imovel["situacao"]) >= 0
-        && strlen($imovel["situacao"]) <= 50
-        && in_array($imovel["situacao"], $situacoes, true)
-        && strlen($imovel["tipo_imovel"]) >= 0
-        && strlen($imovel["tipo_imovel"]) <= 50
-        && in_array($imovel["tipo_imovel"], $tipos, true);
+    
+    if (!is_numeric($imovel["area_construida_m2"]) || $imovel["area_construida_m2"] < 0) {
+        return false;
+    }
+    
+    if (!is_numeric($imovel["area_total_m2"]) || $imovel["area_total_m2"] < 0) {
+        return false;
+    }
+    
+    if ($imovel["area_construida_m2"] > $imovel["area_total_m2"]) {
+        return false;
+    }
+    
+    if (!is_numeric($imovel["quartos"]) || $imovel["quartos"] < 0) {
+        return false;
+    }
+    
+    if (!is_numeric($imovel["banheiros"]) || $imovel["banheiros"] < 0) {
+        return false;
+    }
+    
+    if (isset($imovel["numero_piso"]) && (!is_numeric($imovel["numero_piso"]) || $imovel["numero_piso"] < -5)) {
+        return false;
+    }
+    
+    if (strlen($imovel["logradouro"]) < 10 || strlen($imovel["logradouro"]) > 1000) {
+        return false;
+    }
+    
+    if (!is_numeric($imovel["preco_venda"]) || $imovel["preco_venda"] < 0) {
+        return false;
+    }
+    
+    if (!is_numeric($imovel["mensalidade_aluguel"]) || $imovel["mensalidade_aluguel"] < 0) {
+        return false;
+    }
+    
+    if (strlen($imovel["situacao"]) < 1 || strlen($imovel["situacao"]) > 50 || !in_array($imovel["situacao"], $situacoes)) {
+        return false;
+    }
+    
+    if (strlen($imovel["tipo_imovel"]) < 1 || strlen($imovel["tipo_imovel"]) > 50 || !in_array($imovel["tipo_imovel"], $tipos)) {
+        return false;
+    }
+    
+    return true;
 }
+
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
@@ -102,6 +128,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 } else {
     die("Método não aceito");
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -112,7 +139,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="../CSS/Style.css">
+   
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,700&display=swap" rel="stylesheet">
@@ -136,7 +163,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 
 <body>
-    <!-- NAVBAR -->
+    <!-- NAVBAR 
     <nav class="navbar navbar-expand-sm fixed-top bg-primary-color" id="navbar">
         <div class="container-sm ">
             <a class="navbar-brand" href="index">
@@ -154,7 +181,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                 </ul>
             </div>
         </div>
-    </nav>
+    </nav>-->
     <div class="container_adm">
     <div class="container-md  forms">
       <form method="POST" action="cadastro.php" id="formulario">
