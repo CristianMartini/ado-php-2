@@ -15,7 +15,7 @@ INSERT INTO tipo_imovel (tipo_imovel) VALUES
 
 CREATE TABLE situacao_imovel (
   situacao TEXT PRIMARY KEY NOT NULL
-);
+);carlao
 
 INSERT INTO situacao_imovel (situacao) VALUES 
   ('alugar'),
