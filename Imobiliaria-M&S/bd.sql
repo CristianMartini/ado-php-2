@@ -1,5 +1,11 @@
 PRAGMA foreign_keys = ON;
 
+CREATE TABLE IF NOT EXISTS usuario (
+    chave INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+    senha TEXT NOT NULL
+);
+
 CREATE TABLE tipo_imovel (
   tipo_imovel TEXT PRIMARY KEY NOT NULL
 );
